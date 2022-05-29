@@ -1,5 +1,13 @@
 ---
 format_version: 10
+common:
+    deploy-task: &deploy-tasks
+        - exec:
+            command: bash
+            arguments: 
+                - -c 
+                - echo "Delpoyment on ${ENV_NAME} environment triggered..."
+
 pipelines:
     node_microservice:
         group: microservices
@@ -18,56 +26,38 @@ pipelines:
                                     - -c 
                                     - echo "Building node applications"
             - deploy-dev:
+                environment_variables:
+                    ENV_NAME: "DEV"
                 jobs:
                     deploy:
-                        tasks:
-                            - exec:
-                                command: bash
-                                arguments: 
-                                    - -c 
-                                    - echo "Delpoymen t on DEV environment triggered..."
+                        tasks: *deploy-tasks
             - test-dev:
+                environment_variables:
+                    ENV_NAME: "DEV"
                 jobs:
                     test:
-                        tasks:
-                            - exec:
-                                command: bash
-                                arguments: 
-                                    - -c 
-                                    - echo "Running tests on DEV environment"
+                        tasks: *deploy-tasks
             - deploy-int:
+                environment_variables:
+                    ENV_NAME: "INT"
                 jobs:
                     deploy:
-                        tasks:
-                            - exec:
-                                command: bash
-                                arguments: 
-                                    - -c 
-                                    - echo "Delpoymen t on INT environment triggered..."
+                        tasks: *deploy-tasks
             - test-int:
+                environment_variables:
+                    ENV_NAME: "INT"
                 jobs:
                     test:
-                        tasks:
-                            - exec:
-                                command: bash
-                                arguments: 
-                                    - -c 
-                                    - echo "Running tests on INT environment"
+                        tasks: *deploy-tasks
             - deploy-prod:
+                environment_variables:
+                    ENV_NAME: "PROD"
                 jobs:
                     deploy:
-                        tasks:
-                            - exec:
-                                command: bash
-                                arguments: 
-                                    - -c 
-                                    - echo "Delpoymen t on PROD environment triggered..."
+                        tasks: *deploy-tasks
             - test-prod:
+                environment_variables:
+                    ENV_NAME: "PROD"
                 jobs:
                     test:
-                        tasks:
-                            - exec:
-                                command: bash
-                                arguments: 
-                                    - -c 
-                                    - echo "Running tests on RPOD environment"
+                        tasks: *deploy-tasks
