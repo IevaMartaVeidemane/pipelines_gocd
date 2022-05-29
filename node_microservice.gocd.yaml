@@ -1,0 +1,73 @@
+---
+format_version: 10
+pipelines:
+    ui-tests:
+        group: microservices
+        materials:
+            mainGit:
+                git: https://github.com/IevaMartaVeidemane/ci_course
+                branch: main
+        stages:
+            - build:
+                jobs:
+                    build:
+                        tasks:
+                            - exec:
+                                command: bash
+                                arguments: 
+                                    - -c 
+                                    - echo "Building node applications"
+            - deploy-dev:
+                jobs:
+                    deploy:
+                        tasks:
+                            - exec:
+                                command: bash
+                                arguments: 
+                                    - -c 
+                                    - echo "Delpoymen t on DEV environment triggered..."
+            - test-dev:
+                jobs:
+                    test:
+                        tasks:
+                            - exec:
+                                command: bash
+                                arguments: 
+                                    - -c 
+                                    - echo "Running tests on DEV environment"
+            - deploy-int:
+                jobs:
+                    deploy:
+                        tasks:
+                            - exec:
+                                command: bash
+                                arguments: 
+                                    - -c 
+                                    - echo "Delpoymen t on INT environment triggered..."
+            - test-int:
+                jobs:
+                    test:
+                        tasks:
+                            - exec:
+                                command: bash
+                                arguments: 
+                                    - -c 
+                                    - echo "Running tests on INT environment"
+            - deploy-prod:
+                jobs:
+                    deploy:
+                        tasks:
+                            - exec:
+                                command: bash
+                                arguments: 
+                                    - -c 
+                                    - echo "Delpoymen t on PROD environment triggered..."
+            - test-prod:
+                jobs:
+                    test:
+                        tasks:
+                            - exec:
+                                command: bash
+                                arguments: 
+                                    - -c 
+                                    - echo "Running tests on RPOD environment"
