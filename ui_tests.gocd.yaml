@@ -15,14 +15,14 @@ pipelines:
                     test-chrome:
                         tasks:
                             - exec:
-                                command: make
+                                command: bash
                                 arguments: 
                                     - -c 
                                     - echo "Running UI tests on ${TEST_ENVIRONMENT} environment and chrome browser"
                     test-firefox:
                         tasks:
                             - exec:
-                                command: make
+                                command: bash
                                 arguments: 
                                     - -c 
                                     - echo "Running UI tests on ${TEST_ENVIRONMENT} environment and firefox browser"
