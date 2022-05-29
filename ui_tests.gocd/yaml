@@ -1,0 +1,27 @@
+---
+format_version: 10
+pipelines:
+    ui-tests:
+        group: tests
+        materials:
+            testrepo:
+                git: https://github.com/IevaMartaVeidemane/ci_course
+        environment_variables:
+            TEST_ENVIRONMENT: dev
+        stages:
+            - test:
+                jobs:
+                    test-chrome:
+                        tasks:
+                            - exec:
+                                command: make
+                                arguments: 
+                                    - -c 
+                                    - echo "Running UI tests on ${TEST_ENVIRONMENT} environment and chrome browser"
+                    test-firefox:
+                        tasks:
+                            - exec:
+                                command: make
+                                arguments: 
+                                    - -c 
+                                    - echo "Running UI tests on ${TEST_ENVIRONMENT} environment and firefox browser"
