@@ -22,7 +22,7 @@ common:
             command: bash
             arguments:
                 - -c 
-                - docker exec api_test_executor_${ENV_NAME} cucumber --format html --out test-output/report.html
+                - docker exec api_test_executor_${ENV_NAME} cucumber --tags=@${ENV_NAME} --format html --out test-output/report.html
         - exec:
             run_if: any
             command: bash
@@ -63,6 +63,12 @@ pipelines:
                     ENV_NAME: "DEV"
                 jobs:
                     test:
+                        artifacts:
+                        - build:
+                            source: report_${ENV_NAME}.html
+                            destionation: test-output
+                        tabs:
+                            report: test-output/report_${ENV_NAME}.html
                         tasks: *test-tasks
             - deploy-int:
                 environment_variables:
@@ -75,6 +81,12 @@ pipelines:
                     ENV_NAME: "INT"
                 jobs:
                     test:
+                        artifacts:
+                        - build:
+                            source: report_${ENV_NAME}.html
+                            destionation: test-output
+                        tabs:
+                            report: test-output/report_${ENV_NAME}.html
                         tasks: *test-tasks
             - deploy-prod:
                 environment_variables:
@@ -87,4 +99,10 @@ pipelines:
                     ENV_NAME: "PROD"
                 jobs:
                     test:
+                        artifacts:
+                        - build:
+                            source: report_${ENV_NAME}.html
+                            destionation: test-output
+                        tabs:
+                            report: test-output/report_${ENV_NAME}.html
                         tasks: *test-tasks
