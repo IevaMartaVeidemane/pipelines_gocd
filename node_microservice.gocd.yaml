@@ -7,6 +7,12 @@ common:
             arguments: 
                 - -c 
                 - echo "Delpoyment on ${ENV_NAME} environment triggered..."
+    test-task: &test-tasks
+        - exec:
+            command: bash
+            arguments: 
+                - -c 
+                - echo "Running tests on ${ENV_NAME} environment"
 
 pipelines:
     node_microservice:
@@ -36,7 +42,7 @@ pipelines:
                     ENV_NAME: "DEV"
                 jobs:
                     test:
-                        tasks: *deploy-tasks
+                        tasks: *test-tasks
             - deploy-int:
                 environment_variables:
                     ENV_NAME: "INT"
@@ -48,7 +54,7 @@ pipelines:
                     ENV_NAME: "INT"
                 jobs:
                     test:
-                        tasks: *deploy-tasks
+                        tasks: *test-tasks
             - deploy-prod:
                 environment_variables:
                     ENV_NAME: "PROD"
@@ -60,4 +66,4 @@ pipelines:
                     ENV_NAME: "PROD"
                 jobs:
                     test:
-                        tasks: *deploy-tasks
+                        tasks: *test-tasks
